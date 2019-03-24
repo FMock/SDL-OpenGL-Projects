@@ -1,4 +1,8 @@
+*/Debug/*
+*/*/Debug/*
 Debug/*
+*/Release/*
+*/*/Release/*
 Release/*
 *.user
 *.vcxproj
@@ -7,3 +11,5 @@ Release/*
 *.sln
 *.suo
 *.opensdf
+glew32.dll
+SDL2.dll
