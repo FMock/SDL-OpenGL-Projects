@@ -7,23 +7,27 @@
 #include<assert.h>
 
 // Vector2 struct just stores x/y coordinates
-struct Vector2
-{
+struct Vector2{
+
 	float x;
 	float y;
 };
 
 // Game class
-class Game
-{
+class Game{
+
 public:
 	Game();
+
 	// Initialize the game
 	bool Initialize();
+
 	// Runs the game loop until the game is over
 	void RunLoop();
+
 	// Shutdown the game
 	void Shutdown();
+
 private:
 	// Helper functions for the game loop
 	void ProcessInput();

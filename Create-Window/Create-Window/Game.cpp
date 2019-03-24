@@ -41,7 +41,7 @@ bool Game::Initialize() {
 		return 1; //return false
 	}
 
-	// create openGL context ***************I added the glContext =
+	// create openGL context
 	glContext = SDL_GL_CreateContext(window);
 
 	if (glContext == NULL) {
@@ -81,8 +81,8 @@ bool Game::Initialize() {
 // Runs the game loop until the game is over
 void Game::RunLoop() {
 
-	while (mIsRunning)
-	{
+	while (mIsRunning){
+
 		ProcessInput();
 		UpdateGame();
 		GenerateOutput();
@@ -94,8 +94,7 @@ void Game::RunLoop() {
 void Game::ProcessInput() {
 
 	SDL_Event event;
-	while (SDL_PollEvent(&event))
-	{
+	while (SDL_PollEvent(&event)){
 		switch (event.type)
 		{
 			// If we get an SDL_QUIT event, end loop
@@ -108,8 +107,7 @@ void Game::ProcessInput() {
 	// Get state of keyboard
 	const Uint8* state = SDL_GetKeyboardState(NULL);
 	// If escape is pressed, also end loop
-	if (state[SDL_SCANCODE_ESCAPE])
-	{
+	if (state[SDL_SCANCODE_ESCAPE]){
 		mIsRunning = false;
 	}
 
