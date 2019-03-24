@@ -7,3 +7,5 @@ Release/*
 *.sln
 *.suo
 *.opensdf
+glew32.dll
+SDL2.dll
