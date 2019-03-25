@@ -75,6 +75,11 @@ bool Game::Initialize() {
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
+	//Create the Sprite
+	spriteSize[0] = 44;
+	spriteSize[1] = 55;
+	sprite = Sprite(glTexImageTGAFile("images/magikarp.tga", &spriteSize[0], &spriteSize[1]), 44, 55, 100.0f, 100.0f);
+
 	return true;
 }
 
@@ -123,7 +128,7 @@ void Game::GenerateOutput() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	// Game drawing goes here.
-
+	sprite.draw();
 
 	// Present the most recent frame.
 	SDL_GL_SwapWindow(window);
