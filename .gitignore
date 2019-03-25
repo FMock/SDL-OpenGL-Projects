@@ -12,3 +12,4 @@ Release/*
 glew32.dll
 SDL2.dll
 **/.vs/Create-Window/v15
+**/.vs/*
