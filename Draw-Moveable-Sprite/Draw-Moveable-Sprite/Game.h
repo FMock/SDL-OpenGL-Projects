@@ -43,7 +43,7 @@ private:
 	SDL_GLContext glContext;
 
 	// Number of ticks since start of game
-	Uint32 mTicksCount;
+	Uint32 ticksCount;
 
 	// Game should continue to run
 	bool mIsRunning;

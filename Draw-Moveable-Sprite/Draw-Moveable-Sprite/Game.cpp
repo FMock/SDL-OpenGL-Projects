@@ -3,7 +3,7 @@
 Game::Game()
 	:window(nullptr)
 	, glContext(nullptr)
-	, mTicksCount(0)
+	, ticksCount(0)
 	, mIsRunning(true)
 {}
 
@@ -120,6 +120,17 @@ void Game::ProcessInput() {
 
 void Game::UpdateGame() {
 
+	// Compute delta time
+    // Wait until 16ms has elapsed since last frame
+	while (!SDL_TICKS_PASSED(SDL_GetTicks(), ticksCount + 16))
+		;
+
+	float deltaTime = (SDL_GetTicks() - ticksCount) / 1000.0f;
+	if (deltaTime > 0.05f){
+
+		deltaTime = 0.05f;
+	}
+	ticksCount = SDL_GetTicks();
 }
 
 void Game::GenerateOutput() {
