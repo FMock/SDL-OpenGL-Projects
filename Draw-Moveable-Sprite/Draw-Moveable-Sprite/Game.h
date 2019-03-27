@@ -5,7 +5,7 @@
 #include<stdio.h>
 #include<string.h>
 #include<assert.h>
-#include"Sprite.h"
+#include"MoveableSprite.h"
 #include"DrawUtils.h"
 
 // Vector2 struct just stores x/y coordinates
@@ -49,7 +49,7 @@ private:
 	bool mIsRunning;
 
 	// Sprite
-	Sprite sprite;
+	MoveableSprite sprite;
 	int spriteSize[2];
 
 	// Game Window Size

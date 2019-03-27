@@ -10,7 +10,3 @@ Sprite::Sprite(GLuint tex, int w, int h, float xPos, float yPos) : texture(tex),
 void Sprite::draw() {
 	glDrawSprite(texture, int(x), int(y), width, height);
 }
-
-void Sprite::update(float) {
-
-}

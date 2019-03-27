@@ -5,12 +5,13 @@
 #include<GL/GL.h>
 #include"DrawUtils.h"
 
+// A static sprite
+
 class Sprite {
 public:
 	Sprite();
 	Sprite(GLuint, int, int, float, float);
 	void draw();
-	void update(float);
 	GLuint texture;
 	float x;
 	float y;
