@@ -168,7 +168,7 @@ void Game::GenerateOutput() {
 
 	// Game drawing goes here.
 	sprite.draw();
-	printf(sprite2.to_string().c_str());
+	printf(sprite.to_string().c_str());
 	sprite2.draw();
 
 	// Present the most recent frame.

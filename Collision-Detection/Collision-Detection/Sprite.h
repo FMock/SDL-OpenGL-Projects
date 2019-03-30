@@ -8,7 +8,7 @@
 #include"DrawUtils.h"
 #include"AABB.h"
 
-// A static sprite
+// A static sprite. Sprite does not have the ability to move
 
 class Sprite {
 public:

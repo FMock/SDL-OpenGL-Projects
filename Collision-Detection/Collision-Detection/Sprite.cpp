@@ -35,9 +35,5 @@ std::string Sprite::to_string() const {
 		<< "box y=" << box.y << "\n"
 		<< "box w=" << box.w << "\n"
 		<< "box h=" << box.h << "\n";
-	/*
-	oss << "change_x=" << change_x << "\n"
-		<< "change_y=" << change_y << "\n";
-	*/
 	return oss.str();
 }

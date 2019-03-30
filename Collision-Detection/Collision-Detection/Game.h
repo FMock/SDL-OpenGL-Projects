@@ -50,7 +50,7 @@ private:
 
 	// Sprite
 	MoveableSprite sprite;
-	Sprite sprite2;
+	Sprite sprite2; //static non-moveable sprite
 	int spriteSize[2];
 
 
