@@ -80,6 +80,7 @@ bool Game::Initialize() {
 	spriteSize[0] = 44;
 	spriteSize[1] = 55;
 	sprite = MoveableSprite(glTexImageTGAFile("images/magikarp.tga", &spriteSize[0], &spriteSize[1]), 44, 55, 100.0f, 100.0f);
+	sprite2 = MoveableSprite(glTexImageTGAFile("images/dwarf.tga", &spriteSize[0], &spriteSize[1]), 64, 104, 200.0f, 200.0f);
 
 	return true;
 }
@@ -135,12 +136,12 @@ void Game::ProcessInput() {
 void Game::UpdateGame() {
 
 	// Compute delta time
-    // Wait until 16ms has elapsed since last frame
+	// Wait until 16ms has elapsed since last frame
 	while (!SDL_TICKS_PASSED(SDL_GetTicks(), ticksCount + 16))
 		;
 
 	float deltaTime = (SDL_GetTicks() - ticksCount) / 1000.0f;
-	if (deltaTime > 0.05f){
+	if (deltaTime > 0.05f) {
 
 		deltaTime = 0.05f;
 	}
@@ -148,6 +149,16 @@ void Game::UpdateGame() {
 
 	// Update the sprite
 	sprite.update(deltaTime);
+	sprite2.update(deltaTime);
+
+	if (sprite.box.boxesIntersect(sprite2.box)) {
+		sprite.sethasCollided(true);
+		sprite2.sethasCollided(true);
+	}
+	else {
+		sprite.sethasCollided(false);
+		sprite2.sethasCollided(false);
+	}
 }
 
 void Game::GenerateOutput() {
@@ -158,6 +169,7 @@ void Game::GenerateOutput() {
 	// Game drawing goes here.
 	sprite.draw();
 	printf(sprite.to_string().c_str());
+	sprite2.draw();
 
 	// Present the most recent frame.
 	SDL_GL_SwapWindow(window);

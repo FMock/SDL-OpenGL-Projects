@@ -8,6 +8,8 @@ MoveableSprite::MoveableSprite(GLuint tex, int w, int h, float x, float y)
 void MoveableSprite::update(float deltaTime) {
 	x += change_x * deltaTime;
 	y += change_y * deltaTime;
+	box.x = x;
+	box.y = y;
 }
 
 void MoveableSprite::moveLeft() {
@@ -37,7 +39,14 @@ void MoveableSprite::stop() {
 
 std::string MoveableSprite::to_string() const{
 	std::ostringstream oss;
+	oss << "has collided=" << hasCollided << "\n"
+		<< "box x=" << box.x << "\n"
+		<< "box y=" << box.y << "\n"
+		<< "box w=" << box.w << "\n"
+		<< "box h=" << box.h << "\n";
+	/*
 	oss << "change_x=" << change_x << "\n"
 		<< "change_y=" << change_y << "\n";
+	*/
 	return oss.str();
 }

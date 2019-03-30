@@ -50,7 +50,9 @@ private:
 
 	// Sprite
 	MoveableSprite sprite;
+	MoveableSprite sprite2;
 	int spriteSize[2];
+
 
 	// Game Window Size
 	const int WINDOW_WIDTH = 800;
