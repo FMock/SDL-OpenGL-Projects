@@ -80,7 +80,7 @@ bool Game::Initialize() {
 	spriteSize[0] = 44;
 	spriteSize[1] = 55;
 	sprite = MoveableSprite(glTexImageTGAFile("images/magikarp.tga", &spriteSize[0], &spriteSize[1]), 44, 55, 100.0f, 100.0f);
-	sprite2 = MoveableSprite(glTexImageTGAFile("images/dwarf.tga", &spriteSize[0], &spriteSize[1]), 64, 104, 200.0f, 200.0f);
+	sprite2 = Sprite(glTexImageTGAFile("images/dwarf.tga", &spriteSize[0], &spriteSize[1]), 64, 104, 200.0f, 200.0f);
 
 	return true;
 }
@@ -168,7 +168,7 @@ void Game::GenerateOutput() {
 
 	// Game drawing goes here.
 	sprite.draw();
-	printf(sprite.to_string().c_str());
+	printf(sprite2.to_string().c_str());
 	sprite2.draw();
 
 	// Present the most recent frame.

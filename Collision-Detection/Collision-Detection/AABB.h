@@ -14,7 +14,7 @@ struct AABB {
 	inline void setW(int w) { this->w = w; }
 	inline void setH(int h) { this->h = h; }
 
-	// returns true if this box collides (interectss) with another box
+	// returns true if this box collides (intersects) with another box
 	inline bool boxesIntersect(AABB box2) {
 
 		//this box is to the right of box2
@@ -39,6 +39,5 @@ struct AABB {
 
 		return true;
 	}
-
 };
 #endif
