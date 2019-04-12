@@ -7,6 +7,7 @@
 #include<assert.h>
 #include"MoveableSprite.h"
 #include"DrawUtils.h"
+#include"GLDrawFrameTester.h"
 
 // Vector2 struct just stores x/y coordinates
 struct Vector2 {
@@ -52,6 +53,9 @@ private:
 	MoveableSprite sprite;
 	Sprite sprite2; //static non-moveable sprite
 	int spriteSize[2];
+
+	GlDrawFrameTester drawFrameTester;
+	int spriteSheetSizes[2];
 
 
 	// Game Window Size

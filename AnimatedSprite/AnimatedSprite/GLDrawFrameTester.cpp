@@ -8,9 +8,16 @@ GlDrawFrameTester::GlDrawFrameTester(GLuint image, float x, float y, int nRows, 
 	y(y), 
 	numberOfRows(nRows), 
 	numberOfColumns(nCols), 
-	currentFrame(Frame(0.0, (1.0/numberOfColumns), 0.0, (1.0/numberOfRows))), 
+	currentFrame(Frame(0.0, (1.0/float(numberOfColumns)), 0.0, (1.0/float(numberOfRows)))), 
 	colDivision(1.0/numberOfColumns), 
-	rowDivision(1.0/numberOfRows){}
+	rowDivision(1.0/numberOfRows){
+
+	// These initializations were necessary since above initializations didn't work
+	rowDivision = 1.0 / float(numberOfRows);
+	colDivision = 1.0 / float(numberOfColumns);
+	currentFrame.s2 = 1.0 / float(numberOfColumns);
+	currentFrame.t2 = 1.0 / float(numberOfRows);
+}
 
 void GlDrawFrameTester::draw(){
 	// Temporarilly entered 100, 100 for the frame width and height respectively
@@ -24,21 +31,55 @@ void GlDrawFrameTester::update(float deltaTime){
 	y += 5.0 * deltaTime; // temporarily use 5.0 as change_y
 }
 
-void GlDrawFrameTester::nextFrameRight(){
+void GlDrawFrameTester::updateSandT() {
 	currentFrame.setS1(currentFrame.column * colDivision);
 	currentFrame.setS2((currentFrame.column * colDivision) + colDivision);
 	currentFrame.setT1(currentFrame.row * rowDivision);
 	currentFrame.setT2((currentFrame.row * rowDivision) + rowDivision);
 }
 
-void GlDrawFrameTester::nextFrameLeft(){
+void GlDrawFrameTester::nextFrameRight(){
+	currentFrame.column = (currentFrame.column + 1) % numberOfColumns;
+	updateSandT();
+}
 
+void GlDrawFrameTester::nextFrameLeft(){
+	currentFrame.column = (currentFrame.column -1) % numberOfColumns;
+	updateSandT();
 }
 
 void GlDrawFrameTester::nextFrameUp(){
-
+	currentFrame.row = (currentFrame.row + 1) % numberOfRows;
+	updateSandT();
 }
 
 void GlDrawFrameTester::nextFrameDown(){
+	currentFrame.row = (currentFrame.row - 1) % numberOfRows;
+	updateSandT();
+}
 
+void GlDrawFrameTester::setRowDivision(float rowDiv)
+{
+	this->rowDivision = rowDiv;
+}
+
+void GlDrawFrameTester::setColDivision(float colDiv)
+{
+	this->colDivision = colDiv;
+}
+
+std::string GlDrawFrameTester::to_string() const
+{
+	std::ostringstream oss;
+
+	oss << "rowDivision " << rowDivision << "\n"
+		<< "colDivision " << colDivision << "\n"
+		<< "Frame s1 " << currentFrame.s1 << "\n"
+		<< "Frame s2 " << currentFrame.s2 << "\n"
+		<< "Frame t1 " << currentFrame.t1 << "\n"
+		<< "Frame t2 " << currentFrame.t2 << "\n"
+		<< "X " << x << "\n"
+		<< "y " << y << "\n";
+		
+	return oss.str();
 }

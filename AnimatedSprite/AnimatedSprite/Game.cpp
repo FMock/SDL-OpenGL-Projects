@@ -82,6 +82,10 @@ bool Game::Initialize() {
 	sprite = MoveableSprite(glTexImageTGAFile("images/magikarp.tga", &spriteSize[0], &spriteSize[1]), 44, 55, 100.0f, 100.0f);
 	sprite2 = Sprite(glTexImageTGAFile("images/dwarf.tga", &spriteSize[0], &spriteSize[1]), 64, 104, 200.0f, 200.0f);
 
+
+	drawFrameTester = GlDrawFrameTester(glTexImageTGAFile("images/test-sheet.tga", &spriteSheetSizes[0], &spriteSheetSizes[1]), 300.0f, 300.0f, 6, 8);
+	
+
 	return true;
 }
 
@@ -128,6 +132,18 @@ void Game::ProcessInput() {
 	else if (state[SDL_SCANCODE_DOWN]) {
 		sprite.moveDown();
 	}
+	else if (state[SDL_SCANCODE_D]) {
+		drawFrameTester.nextFrameRight();
+	}
+	else if (state[SDL_SCANCODE_A]) {
+		drawFrameTester.nextFrameRight();
+	}
+	else if (state[SDL_SCANCODE_W]) {
+		drawFrameTester.nextFrameUp();
+	}
+	else if (state[SDL_SCANCODE_S]) {
+		drawFrameTester.nextFrameDown();
+	}
 	else {
 		sprite.stop();
 	}
@@ -168,8 +184,10 @@ void Game::GenerateOutput() {
 
 	// Game drawing goes here.
 	sprite.draw();
-	printf(sprite.to_string().c_str());
+	//printf(sprite.to_string().c_str());
 	sprite2.draw();
+	drawFrameTester.draw();
+	printf(drawFrameTester.to_string().c_str());
 
 	// Present the most recent frame.
 	SDL_GL_SwapWindow(window);
