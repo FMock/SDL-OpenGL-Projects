@@ -90,6 +90,85 @@ GLuint glTexImageTGAFile(const char* filename, int* outWidth, int* outHeight)
 	return tex;
 }
 
+GLuint glTexImageTGAFile(const char * filename)
+{
+	const int BPP = 4;
+
+	/* open the file
+	*  May have to add _CRT_SECURE_NO_WARNINGS
+	*  to C++ -> Preprocessor -> Preprocessor Definitions for using fopen
+	*/
+
+	FILE* file = fopen(filename, "rb");
+	if (file == NULL) {
+		fprintf(stderr, "File: %s -- Could not open for reading.\n", filename);
+		return 0;
+	}
+
+	/* skip first two bytes of data we don't need */
+	fseek(file, 2, SEEK_CUR);
+
+	/* read in the image type.  For our purposes the image type should
+	* be either a 2 or a 3. */
+	unsigned char imageTypeCode;
+	fread(&imageTypeCode, 1, 1, file);
+	if (imageTypeCode != 2 && imageTypeCode != 3) {
+		fclose(file);
+		fprintf(stderr, "File: %s -- Unsupported TGA type: %d\n", filename, imageTypeCode);
+		return 0;
+	}
+
+	/* skip 9 bytes of data we don't need */
+	fseek(file, 9, SEEK_CUR);
+
+	/* read image dimensions */
+	int imageWidth = 0;
+	int imageHeight = 0;
+	int bitCount = 0;
+	fread(&imageWidth, sizeof(short), 1, file);
+	fread(&imageHeight, sizeof(short), 1, file);
+	fread(&bitCount, sizeof(unsigned char), 1, file);
+	fseek(file, 1, SEEK_CUR);
+
+	/* allocate memory for image data and read it in */
+	unsigned char* bytes = (unsigned char*)calloc(imageWidth * imageHeight * BPP, 1);
+
+	/* read in data */
+	if (bitCount == 32) {
+		int it;
+		for (it = 0; it != imageWidth * imageHeight; ++it) {
+			bytes[it * BPP + 0] = fgetc(file);
+			bytes[it * BPP + 1] = fgetc(file);
+			bytes[it * BPP + 2] = fgetc(file);
+			bytes[it * BPP + 3] = fgetc(file);
+		}
+	}
+	else {
+		int it;
+		for (it = 0; it != imageWidth * imageHeight; ++it) {
+			bytes[it * BPP + 0] = fgetc(file);
+			bytes[it * BPP + 1] = fgetc(file);
+			bytes[it * BPP + 2] = fgetc(file);
+			bytes[it * BPP + 3] = 255;
+		}
+	}
+
+	fclose(file);
+
+	/* load into OpenGL */
+	GLuint tex;
+	glGenTextures(1, &tex);
+	glBindTexture(GL_TEXTURE_2D, tex);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageWidth, imageHeight, 0,
+		GL_BGRA, GL_UNSIGNED_BYTE, bytes);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
+	free(bytes);
+
+	return tex;
+}
+
 /* Draw the sprite */
 void glDrawSprite(GLuint tex, int x, int y, int w, int h)
 {

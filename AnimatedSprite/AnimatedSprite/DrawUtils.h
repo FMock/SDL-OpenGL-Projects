@@ -9,6 +9,8 @@
 
 GLuint glTexImageTGAFile(const char* filename, int* outWidth, int* outHeight);
 
+GLuint glTexImageTGAFile(const char* filename);
+
 void glDrawSprite(GLuint tex, int x, int y, int w, int h);
 
 /* This function is used when only part of a texture will be drawn. You must

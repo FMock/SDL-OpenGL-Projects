@@ -2,8 +2,14 @@
 
 MoveableSprite::MoveableSprite() {}
 
-MoveableSprite::MoveableSprite(GLuint tex, int w, int h, float x, float y) 
-	: change_x(0.0), change_y(0.0), speed_x(5.0), speed_y(5.0), Sprite(tex, w, h, x, y){}
+MoveableSprite::MoveableSprite(GLuint tex, int w, int h, float x, float y, GameInfo* gInfo) 
+	: gameInfo(gInfo), change_x(0.0), change_y(0.0), speed_x(5.0), speed_y(5.0), Sprite(tex, w, h, x, y){}
+
+MoveableSprite::MoveableSprite(int w, int h, float x, float y, GameInfo* gInfo) 
+	: gameInfo(gInfo), change_x(0.0), change_y(0.0), speed_x(5.0), speed_y(5.0), Sprite(glTexImageTGAFile(gInfo->fileInfo.c_str()), w, h, x, y)
+{
+
+}
 
 void MoveableSprite::update(float deltaTime) {
 	x += change_x * deltaTime;
@@ -43,7 +49,8 @@ std::string MoveableSprite::to_string() const{
 		<< "box x=" << box.x << "\n"
 		<< "box y=" << box.y << "\n"
 		<< "box w=" << box.w << "\n"
-		<< "box h=" << box.h << "\n";
+		<< "box h=" << box.h << "\n"
+		<< "MoveableSprite's gameInfo " << gameInfo->fileInfo << "\n";
 	/*
 	oss << "change_x=" << change_x << "\n"
 		<< "change_y=" << change_y << "\n";

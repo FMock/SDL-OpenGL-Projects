@@ -7,6 +7,11 @@ Game::Game()
 	, mIsRunning(true)
 {}
 
+Game::~Game()
+{
+	delete gameInfo;
+}
+
 // Initialize the game
 bool Game::Initialize() {
 
@@ -77,9 +82,15 @@ bool Game::Initialize() {
 
 
 	//Create the Sprite
+
+	//Create GameInfo object others will reference
+	gameInfo = new GameInfo("config/.anim_config");
+
 	spriteSize[0] = 44;
 	spriteSize[1] = 55;
-	sprite = MoveableSprite(glTexImageTGAFile("images/magikarp.tga", &spriteSize[0], &spriteSize[1]), 44, 55, 100.0f, 100.0f);
+	//sprite = MoveableSprite(glTexImageTGAFile("images/magikarp.tga", &spriteSize[0], &spriteSize[1]), 44, 55, 100.0f, 100.0f, gameInfo);
+	sprite = MoveableSprite(glTexImageTGAFile("images/magikarp.tga"), 44, 55, 100.0f, 100.0f, gameInfo);
+	//sprite = MoveableSprite(44, 55, 100.0f, 100.0f, gameInfo);
 	sprite2 = Sprite(glTexImageTGAFile("images/dwarf.tga", &spriteSize[0], &spriteSize[1]), 64, 104, 200.0f, 200.0f);
 
 
@@ -184,10 +195,10 @@ void Game::GenerateOutput() {
 
 	// Game drawing goes here.
 	sprite.draw();
-	//printf(sprite.to_string().c_str());
+	printf(sprite.to_string().c_str());
 	sprite2.draw();
 	drawFrameTester.draw();
-	printf(drawFrameTester.to_string().c_str());
+	//printf(drawFrameTester.to_string().c_str());
 
 	// Present the most recent frame.
 	SDL_GL_SwapWindow(window);
