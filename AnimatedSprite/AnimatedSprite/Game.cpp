@@ -195,7 +195,7 @@ void Game::GenerateOutput() {
 
 	// Game drawing goes here.
 	sprite.draw();
-	printf(sprite.to_string().c_str());
+	//printf(sprite.to_string().c_str());
 	sprite2.draw();
 	drawFrameTester.draw();
 	//printf(drawFrameTester.to_string().c_str());
