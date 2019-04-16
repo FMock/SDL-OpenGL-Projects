@@ -1,3 +1,3 @@
-magikarp,images/magikarp.tga
-dwarf,images/dwarf.tga
-test-sheet,images/test-sheet.tga
+fish,images/magikarp.tga,8,8,100,100
+player,images/dwarf.tga,9,9,50,50
+skeleton,images/skeleton.tga,6,6,50,50
