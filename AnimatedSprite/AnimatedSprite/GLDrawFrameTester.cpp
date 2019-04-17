@@ -8,15 +8,15 @@ GlDrawFrameTester::GlDrawFrameTester(GLuint image, float x, float y, int nRows, 
 	y(y), 
 	numberOfRows(nRows), 
 	numberOfColumns(nCols), 
-	currentFrame(Frame(0.0, (1.0/float(numberOfColumns)), 0.0, (1.0/float(numberOfRows)))), 
-	colDivision(1.0/numberOfColumns), 
-	rowDivision(1.0/numberOfRows){
+	currentFrame(Frame(0.0, (float(1.0/float(numberOfColumns))), 0.0, (float(1.0/float(numberOfRows))))), 
+	colDivision(float(1.0/numberOfColumns)), 
+	rowDivision(float(1.0/numberOfRows)){
 
 	// These initializations were necessary since above initializations didn't work
-	rowDivision = 1.0 / float(numberOfRows);
-	colDivision = 1.0 / float(numberOfColumns);
-	currentFrame.s2 = 1.0 / float(numberOfColumns);
-	currentFrame.t2 = 1.0 / float(numberOfRows);
+	rowDivision = float(1.0 / float(numberOfRows));
+	colDivision = float(1.0 / float(numberOfColumns));
+	currentFrame.s2 = float(1.0 / float(numberOfColumns));
+	currentFrame.t2 = float(1.0 / float(numberOfRows));
 }
 
 void GlDrawFrameTester::draw(){

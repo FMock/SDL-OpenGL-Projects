@@ -5,19 +5,17 @@
 #include<iostream>
 #include<fstream>
 #include<sstream>
-#include<vector>
 #include<map>
 
 class GameInfo {
 public:
 	GameInfo();
 	GameInfo(const std::string &file);
-	std::string fileInfo;
-	std::vector<std::string> fileLines;
+	std::string getGameInfoValue(const std::string);
 	std::map<std::string, std::string> gameInfoMap;
 private:
 	const std::string configFile;
-	void readConfigFile();
+	void buildGameInfoMap();
 	void printMapInfo();
 	std::string getFirstToken(std::string, char);
 };

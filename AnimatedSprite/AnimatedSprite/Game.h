@@ -8,7 +8,7 @@
 #include"MoveableSprite.h"
 #include"DrawUtils.h"
 #include"GLDrawFrameTester.h"
-#include"GameInfo.h"
+#include"SpritesheetInfo.h"
 
 // Vector2 struct just stores x/y coordinates
 struct Vector2 {
@@ -34,7 +34,7 @@ public:
 	void Shutdown();
 
 	//Shared with other game objects
-	GameInfo* gameInfo;
+	SpritesheetInfo* spritesheetInfo;
 
 private:
 	// Helper functions for the game loop
