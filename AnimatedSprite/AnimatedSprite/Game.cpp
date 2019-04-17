@@ -9,7 +9,7 @@ Game::Game()
 
 Game::~Game()
 {
-	delete spritesheetInfo;
+	ptrSpritesheetInfo.reset();
 }
 
 // Initialize the game
@@ -82,14 +82,15 @@ bool Game::Initialize() {
 
 
 	//Create spritesheetInfo object MoveableSprites or AnimatedSprites can reference
-	spritesheetInfo = new SpritesheetInfo("config/.anim_config");
+	ptrSpritesheetInfo = std::make_shared<SpritesheetInfo>("config/.anim_config");
 
 	spriteSize[0] = 44;
 	spriteSize[1] = 55;
 
 	//sprite = MoveableSprite(glTexImageTGAFile("images/magikarp.tga"), 44, 55, 100.0f, 100.0f, "fish");
-	sprite = MoveableSprite(44, 55, 100.0f, 100.0f, spritesheetInfo, "fish");
+	sprite = MoveableSprite(44, 55, 100.0f, 100.0f, ptrSpritesheetInfo, "fish");
 	sprite2 = Sprite(glTexImageTGAFile("images/dwarf.tga", &spriteSize[0], &spriteSize[1]), 64, 104, 200.0f, 200.0f);
+	sprite3 = AnimatedSprite(40.0, 400.0, ptrSpritesheetInfo, "fish2");
 
 
 	drawFrameTester = GlDrawFrameTester(glTexImageTGAFile("images/test-sheet.tga", &spriteSheetSizes[0], &spriteSheetSizes[1]), 300.0f, 300.0f, 6, 8);
@@ -175,6 +176,7 @@ void Game::UpdateGame() {
 	// Update the sprite
 	sprite.update(deltaTime);
 	sprite2.update(deltaTime);
+	sprite3.update(deltaTime);
 
 	if (sprite.box.boxesIntersect(sprite2.box)) {
 		sprite.sethasCollided(true);
@@ -197,6 +199,7 @@ void Game::GenerateOutput() {
 	sprite2.draw();
 	drawFrameTester.draw();
 	//printf(drawFrameTester.to_string().c_str());
+	sprite3.draw();
 
 	// Present the most recent frame.
 	SDL_GL_SwapWindow(window);

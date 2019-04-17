@@ -7,6 +7,7 @@
 #include<sstream>
 #include"DrawUtils.h"
 #include"AABB.h"
+#include"Vector2D.h"
 
 // A static sprite. Sprite does not have the ability to move
 
@@ -24,8 +25,13 @@ protected:
 	GLuint texture;
 	float x;
 	float y;
+	float change_x;
+	float change_y;
 	int width;
 	int height;
+	void setWidth(int);
+	void setHeight(int);
+	Vector2D position;
 	bool hasCollided;
 };
 

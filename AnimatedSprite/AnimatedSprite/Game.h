@@ -5,7 +5,9 @@
 #include<stdio.h>
 #include<string.h>
 #include<assert.h>
+#include<memory> //std::shared_ptr<>
 #include"MoveableSprite.h"
+#include"AnimatedSprite.h"
 #include"DrawUtils.h"
 #include"GLDrawFrameTester.h"
 #include"SpritesheetInfo.h"
@@ -34,7 +36,7 @@ public:
 	void Shutdown();
 
 	//Shared with other game objects
-	SpritesheetInfo* spritesheetInfo;
+	std::shared_ptr<SpritesheetInfo> ptrSpritesheetInfo;
 
 private:
 	// Helper functions for the game loop
@@ -57,6 +59,7 @@ private:
 	// Sprite
 	MoveableSprite sprite;
 	Sprite sprite2; //static non-moveable sprite
+	AnimatedSprite sprite3;
 	int spriteSize[2];
 
 	GlDrawFrameTester drawFrameTester;

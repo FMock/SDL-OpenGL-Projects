@@ -5,7 +5,17 @@ Sprite::Sprite() {
 }
 
 Sprite::Sprite(GLuint tex, int w, int h, float xPos, float yPos) : 
-	texture(tex), width(w), height(h), x(xPos), y(yPos), box(x, y, w, h), hasCollided(true) {
+	texture(tex), 
+	width(w), 
+	height(h), 
+	x(xPos), 
+	y(yPos), 
+	box(x, y, w, h), 
+	position(Vector2D(xPos, yPos)), 
+	hasCollided(true) 
+{
+	change_x = 0.0;
+	change_y = 0.0;
 }
 
 void Sprite::draw() {
@@ -36,4 +46,12 @@ std::string Sprite::to_string() const {
 		<< "box w=" << box.w << "\n"
 		<< "box h=" << box.h << "\n";
 	return oss.str();
+}
+
+void Sprite::setWidth(int w){
+	if (w > 0) { width = w; }
+}
+
+void Sprite::setHeight(int h){
+	if (h > 0) { height = h; }
 }

@@ -10,15 +10,19 @@ MoveableSprite::MoveableSprite(GLuint tex, int w, int h, float x, float y, std::
 	  name(name),
 	  Sprite(tex, w, h, x, y){}
 
-MoveableSprite::MoveableSprite(int w, int h, float x, float y, SpritesheetInfo* sptInfo, std::string name) 
-	: spritesheetInfo(sptInfo), 
+MoveableSprite::MoveableSprite(int w, int h, float x, float y, std::shared_ptr<SpritesheetInfo> ptrSSInfo, std::string name) 
+	: ptrSpritesheetInfo(ptrSSInfo), 
 	  change_x(0.0), 
 	  change_y(0.0), 
 	  speed_x(5.0), 
 	  speed_y(5.0),
 	  name(name),
-	  Sprite(glTexImageTGAFile(this->getFileInfo(sptInfo->getSpritesheetValues(name)).c_str()), w, h, x, y)
+	  Sprite(glTexImageTGAFile(this->getFileInfo(ptrSSInfo->getSpritesheetValues(name)).c_str()), w, h, x, y)
 {}
+
+MoveableSprite::~MoveableSprite(){
+	ptrSpritesheetInfo.reset();
+}
 
 void MoveableSprite::update(float deltaTime) {
 	x += change_x * deltaTime;

@@ -3,9 +3,10 @@
 #include "Sprite.h"
 #include<string>
 #include<sstream>
+#include<memory>
 #include"DrawUtils.h"
-//#include"GameInfo.h"
 #include"SpritesheetInfo.h"
+
 
 // The name of this class says it all - 
 // MoveableSprite is a non-static sprite, that can be moved
@@ -17,7 +18,10 @@ public:
 	MoveableSprite(GLuint, int, int, float, float, std::string);
 
 	// Gets image file info from SpritesheetInfo using string parameter
-	MoveableSprite(int, int, float, float, SpritesheetInfo*, std::string);
+	//MoveableSprite(int, int, float, float, SpritesheetInfo*, std::string);
+	MoveableSprite(int, int, float, float, std::shared_ptr<SpritesheetInfo>, std::string);
+
+	~MoveableSprite();
 
 	void update(float);
 	void moveLeft();
@@ -31,7 +35,8 @@ public:
 private:
 	std::string name;
 	std::string getFileInfo(const std::string&);
-	SpritesheetInfo* spritesheetInfo;
+	//SpritesheetInfo* spritesheetInfo;
+	std::shared_ptr<SpritesheetInfo> ptrSpritesheetInfo;
 
 protected:
 	float change_x;
