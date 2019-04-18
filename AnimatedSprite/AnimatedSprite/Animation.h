@@ -1,0 +1,37 @@
+#pragma once
+#ifndef ANIMATION_H
+#define ANIMATION_H
+#include<string>
+#include<GL/glew.h>
+#include"Frame.h"
+
+/* Animation.h
+ * Encapsulates a single animation and it's intrinsic properties.
+ */
+
+class Animation {
+public:
+	Animation();
+
+	/* Animation
+	 * param a - numberOfColumns, the number of columns on spritesheet
+	 * param b - numberOfRows, the number of rows this animation consists of
+	 * param c - startingRow, the row this animation starts at on the spritesheet
+	 * param d - textual name of this animation
+	 * param facingDirection - character facing direction shown in the animation
+	 */
+	Animation(int a, int b, int c, const std::string& d, const int facingDirection);
+	void nextFrame(float, float);   // draws the next frame of the animation
+private:
+	int numberOfColumns; // number of frames in one row a the animation (all rows must contain the same number of columns)
+	int numberOfRows;   // total number of rows for this animation
+	int startingRow;    // the row this animation starts at on the spritesheet
+	int currentColumn;   // initial value is 0
+	int currentRow;     // initial value is startingRow
+	Frame currentFrame; // encapsulates texture s1, s2, t1, t2 which define current frame and related info
+	float columnDivision;
+	float rowDivision;
+	std::string name;
+	int facingDirection;
+};
+#endif

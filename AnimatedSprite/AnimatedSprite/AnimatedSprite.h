@@ -36,12 +36,15 @@ public:
 	void setFacingDirection(int);
 	int getFacingDirection() const;
 	int facingDirection;
-	enum facingDirections { LEFT, RIGHT, UP, DOWN };
+	enum SPRITESHEET_INFO { IMAGE = 1, ROWS, COLUMNS, WIDTH, HEIGHT };
+	enum FACING_DIRECTIONS { LEFT, RIGHT, UP, DOWN };
 	std::string name;
 	std::string to_string() const;
 
 private:
 	std::string getFileInfo(const std::string&);
+	std::string getSpritesheetInfoAtPos(const std::string& line, char delimiter, int pos);
+	int stringToInt(std::string& s);
 
 protected:
 	float speed_x;

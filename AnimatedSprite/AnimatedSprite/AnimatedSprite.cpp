@@ -9,9 +9,14 @@ AnimatedSprite::AnimatedSprite(float x, float y, std::shared_ptr<SpritesheetInfo
 	  name(name),
 	  Sprite(glTexImageTGAFile(this->getFileInfo(ptrSSInfo->getSpritesheetValues(name)).c_str()), 0, 0, x, y)
 {
-	/*w=40, h=50 get values from spritesheetInfo*/
-	setWidth(100);
-	setHeight(100);
+	// Set Sprite Width
+	const std::string playerInfo = ptrSSInfo->getSpritesheetValues(name);
+	std::string w = getSpritesheetInfoAtPos(playerInfo, ',', WIDTH);
+	setWidth(stringToInt(w));
+
+	// Set Sprite Height
+	std::string h = getSpritesheetInfoAtPos(playerInfo, ',', HEIGHT);
+	setHeight(stringToInt(h));
 }
 
 AnimatedSprite::~AnimatedSprite()
@@ -85,7 +90,29 @@ std::string AnimatedSprite::getFileInfo(const std::string& key){
 	return fileInfo;
 }
 
+std::string AnimatedSprite::getSpritesheetInfoAtPos(const std::string & line, char delimiter, int pos)
+{
+	std::string buff;
+	std::stringstream ss;
+	ss << line;
+	for (auto i = 0; i < pos; i++) {
+		std::getline(ss, buff, delimiter);
+	}
+	return buff;
+}
+
+int AnimatedSprite::stringToInt(std::string& s){
+	std::stringstream ss(s);
+	int n;
+	ss >> n;
+	return n;
+}
+
 std::string AnimatedSprite::to_string() const
 {
-	return std::string();
+	std::ostringstream oss;
+	oss << "name " << name << "\n"
+		<< "width " << width << "\n"
+		<< "height " << height << "\n";
+	return oss.str();
 }
