@@ -17,6 +17,11 @@ AnimatedSprite::AnimatedSprite(float x, float y, std::shared_ptr<SpritesheetInfo
 	// Set Sprite Height
 	std::string h = getSpritesheetInfoAtPos(playerInfo, ',', HEIGHT);
 	setHeight(stringToInt(h));
+
+	// Create an AnimatedDef that creates and manages the animations for sprite
+	std::string r = getSpritesheetInfoAtPos(playerInfo, ',', ROWS);
+	std::string c = getSpritesheetInfoAtPos(playerInfo, ',', COLUMNS);
+	animationDef = AnimationDef(stringToInt(r), stringToInt(c));
 }
 
 AnimatedSprite::~AnimatedSprite()
@@ -36,16 +41,23 @@ void AnimatedSprite::update(float deltaTime)
 }
 
 void AnimatedSprite::draw(){
-	glDrawSprite(texture, int(x), int(y), width, height);
+	//glDrawSprite(texture, int(x), int(y), width, height);
+
+	//glDrawFrame(image, x, y, 100, 100, currentFrame.s1, currentFrame.s2, currentFrame.t1, currentFrame.t2);
+	glDrawFrame(texture,
+		x,
+		y,
+		width,
+		height,
+		animationDef.animations.at(getCurrentAnimation()).currentFrame.s1,
+		animationDef.animations.at(getCurrentAnimation()).currentFrame.s2,
+		animationDef.animations.at(getCurrentAnimation()).currentFrame.t1,
+		animationDef.animations.at(getCurrentAnimation()).currentFrame.t2);
 }
 
 void AnimatedSprite::changeAnimation(int x)
 {
-}
-
-int AnimatedSprite::getCurrentAnimation() const
-{
-	return 0;
+	animationDef.setCurrentAnimation(x);
 }
 
 void AnimatedSprite::moveLeft()
@@ -106,6 +118,11 @@ int AnimatedSprite::stringToInt(std::string& s){
 	int n;
 	ss >> n;
 	return n;
+}
+
+int AnimatedSprite::getCurrentAnimation() const
+{
+	return animationDef.getCurrentAnimation();
 }
 
 std::string AnimatedSprite::to_string() const

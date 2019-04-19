@@ -23,11 +23,9 @@ public:
 	AnimatedSprite(float, float, std::shared_ptr<SpritesheetInfo>, const std::string&);
 	~AnimatedSprite();
 	std::shared_ptr<SpritesheetInfo> ptrSpritesheetInfo;
-	AnimationDef animationDef;
 	virtual void update(float deltaTime);
 	virtual void draw();
 	void changeAnimation(int x); // tells animationDef to change to animation x
-	int getCurrentAnimation() const;
 	void moveLeft();
 	void moveRight();
 	void moveUp();
@@ -42,9 +40,11 @@ public:
 	std::string to_string() const;
 
 private:
+	AnimationDef animationDef;
 	std::string getFileInfo(const std::string&);
 	std::string getSpritesheetInfoAtPos(const std::string& line, char delimiter, int pos);
 	int stringToInt(std::string& s);
+	int getCurrentAnimation() const;
 
 protected:
 	float speed_x;

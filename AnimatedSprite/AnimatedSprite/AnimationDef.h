@@ -2,26 +2,40 @@
 #ifndef ANIMATIONDEF_H
 #define ANIMATIONDEF_H
 
-//#include"animation.h"
 #include<vector>
 #include<map>
+#include"DrawUtils.h"
+#include"Animation.h"
 
 class AnimationDef {
 public:
 	AnimationDef();
 
 	/* AnimationDef.h
-	 * param b - total rows on the spritesheet
-	 * param c - frameWidth
-	 * param d - frameHeight
-	 * param anims - a reference to a vector of animation objects
-	 * param aMap - mapping of animation names to it's index in the aniamtions vector
-	 * The animationMap member contains a mapping of each animations textual name to it's
-	 * index position in the animation list. main.cpp can use this mapping to do a lookup to check
-	 * and possibly change an animation when the player presses certain keys.
+	 * param rows - integer - total rows on the spritesheet
+	 * param cols - integer - total columns on the spritesheet
+	 * param fWidth - integer - frame width on spritesheet (assumed all frames are same size)
+	 * param fHeight - integer - frame height on spritesheet (assumed all frames are same size)
 	 */
-
+	AnimationDef(int rows, int cols);
 	void update(float);
+	int getCurrentAnimation()const;
+	void setCurrentAnimation(unsigned int);
+	void setAnimFPS(float fps);
+	float getAnimFPS() const;
+	std::string to_string() const;
+	std::vector<Animation> animations;
+
+private:
+	float frameTime; // the amount of time the current frame has been displayed
+	float animFPS;   // default is 24.0f
+	int currentAnimation;
+	float colDivision;
+	float rowDivision;
+	int numberOfRows; // total number of rows on spritesheet
+	int numberOfColumns; // total number of columns on spritesheet
+	int frameWidth;
+	int frameHeight;
 };
 
 #endif

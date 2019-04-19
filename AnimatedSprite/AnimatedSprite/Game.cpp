@@ -90,10 +90,11 @@ bool Game::Initialize() {
 	//sprite = MoveableSprite(glTexImageTGAFile("images/magikarp.tga"), 44, 55, 100.0f, 100.0f, "fish");
 	sprite = MoveableSprite(44, 55, 100.0f, 100.0f, ptrSpritesheetInfo, "fish");
 	sprite2 = Sprite(glTexImageTGAFile("images/dwarf.tga", &spriteSize[0], &spriteSize[1]), 64, 104, 200.0f, 200.0f);
-	sprite3 = AnimatedSprite(40.0, 400.0, ptrSpritesheetInfo, "fish2");
+	//sprite3 = AnimatedSprite(40.0f, 400.0f, ptrSpritesheetInfo, "fish2");
+	sprite3 = AnimatedSprite(40.0f, 400.0f, ptrSpritesheetInfo, "explosion");
 
 
-	drawFrameTester = GlDrawFrameTester(glTexImageTGAFile("images/test-sheet.tga"), 300.0f, 300.0f, 6, 8, 100, 100);
+	//drawFrameTester = GlDrawFrameTester(glTexImageTGAFile("images/test-sheet.tga"), 300.0f, 300.0f, 6, 8, 100, 100);
 	//drawFrameTester = GlDrawFrameTester(glTexImageTGAFile("images/explosion_128x128.tga"), 300.0f, 300.0f, 5, 6, 128, 128);
 	
 
@@ -183,7 +184,7 @@ void Game::UpdateGame() {
 	sprite.update(deltaTime);
 	sprite2.update(deltaTime);
 	sprite3.update(deltaTime);
-	drawFrameTester.update(deltaTime);
+	//drawFrameTester.update(deltaTime);
 
 	if (sprite.box.boxesIntersect(sprite2.box)) {
 		sprite.sethasCollided(true);
@@ -204,7 +205,7 @@ void Game::GenerateOutput() {
 	sprite.draw();
 	//printf(sprite.to_string().c_str());
 	sprite2.draw();
-	drawFrameTester.draw();
+	//drawFrameTester.draw();
 	//printf(drawFrameTester.to_string().c_str());
 	sprite3.draw();
 	printf(sprite3.to_string().c_str());
