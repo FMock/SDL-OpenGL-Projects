@@ -93,7 +93,8 @@ bool Game::Initialize() {
 	sprite3 = AnimatedSprite(40.0, 400.0, ptrSpritesheetInfo, "fish2");
 
 
-	drawFrameTester = GlDrawFrameTester(glTexImageTGAFile("images/test-sheet.tga", &spriteSheetSizes[0], &spriteSheetSizes[1]), 300.0f, 300.0f, 6, 8);
+	drawFrameTester = GlDrawFrameTester(glTexImageTGAFile("images/test-sheet.tga"), 300.0f, 300.0f, 6, 8, 100, 100);
+	//drawFrameTester = GlDrawFrameTester(glTexImageTGAFile("images/explosion_128x128.tga"), 300.0f, 300.0f, 5, 6, 128, 128);
 	
 
 	return true;
@@ -124,6 +125,9 @@ void Game::ProcessInput() {
 		}
 	}
 
+	// USED FOR SETTING drawFrameTester animation
+	int currentAnim = drawFrameTester.getCurrentAnimation();
+
 	// Get state of keyboard
 	const Uint8* state = SDL_GetKeyboardState(NULL);
 	// If escape is pressed, also end loop
@@ -143,16 +147,18 @@ void Game::ProcessInput() {
 		sprite.moveDown();
 	}
 	else if (state[SDL_SCANCODE_D]) {
-		drawFrameTester.nextFrameRight();
+		currentAnim = drawFrameTester.getCurrentAnimation();
+		currentAnim += 1 % 6;
+		drawFrameTester.setCurrentAnimation(currentAnim);
 	}
 	else if (state[SDL_SCANCODE_A]) {
-		drawFrameTester.nextFrameRight();
+		currentAnim = drawFrameTester.getCurrentAnimation();
+		currentAnim -= 1 % 6;
+		drawFrameTester.setCurrentAnimation(currentAnim);
 	}
 	else if (state[SDL_SCANCODE_W]) {
-		drawFrameTester.nextFrameUp();
 	}
 	else if (state[SDL_SCANCODE_S]) {
-		drawFrameTester.nextFrameDown();
 	}
 	else {
 		sprite.stop();
@@ -177,6 +183,7 @@ void Game::UpdateGame() {
 	sprite.update(deltaTime);
 	sprite2.update(deltaTime);
 	sprite3.update(deltaTime);
+	drawFrameTester.update(deltaTime);
 
 	if (sprite.box.boxesIntersect(sprite2.box)) {
 		sprite.sethasCollided(true);
