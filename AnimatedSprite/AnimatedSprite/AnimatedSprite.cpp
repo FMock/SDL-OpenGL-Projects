@@ -13,10 +13,12 @@ AnimatedSprite::AnimatedSprite(float x, float y, std::shared_ptr<SpritesheetInfo
 	const std::string playerInfo = ptrSSInfo->getSpritesheetValues(name);
 	std::string w = getSpritesheetInfoAtPos(playerInfo, ',', WIDTH);
 	setWidth(stringToInt(w));
+	box.w = stringToInt(w);
 
 	// Set Sprite Height
 	std::string h = getSpritesheetInfoAtPos(playerInfo, ',', HEIGHT);
 	setHeight(stringToInt(h));
+	box.h = stringToInt(h);
 
 	// Create an AnimatedDef that creates and manages the animations for sprite
 	std::string r = getSpritesheetInfoAtPos(playerInfo, ',', ROWS);
@@ -33,6 +35,7 @@ void AnimatedSprite::update(float deltaTime)
 {
 	x += change_x * deltaTime;
 	y += change_y * deltaTime;
+
 	position.setX(x);
 	box.setX(abs(x));
 	position.setY(y);
@@ -130,6 +133,11 @@ std::string AnimatedSprite::to_string() const
 	std::ostringstream oss;
 	oss << "name " << name << "\n"
 		<< "width " << width << "\n"
-		<< "height " << height << "\n";
+		<< "height " << height << "\n"
+		<< "hasCollided " << hasCollided << "\n"
+		<< "box x=" << box.x << "\n"
+		<< "box y=" << box.y << "\n"
+		<< "box w=" << box.w << "\n"
+		<< "box h=" << box.h << "\n";
 	return oss.str();
 }

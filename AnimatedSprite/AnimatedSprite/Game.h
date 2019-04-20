@@ -9,7 +9,6 @@
 #include"MoveableSprite.h"
 #include"AnimatedSprite.h"
 #include"DrawUtils.h"
-#include"GLDrawFrameTester.h"
 #include"SpritesheetInfo.h"
 
 // Vector2 struct just stores x/y coordinates
@@ -56,15 +55,9 @@ private:
 	// Game should continue to run
 	bool mIsRunning;
 
-	// Sprite
+	// Sprites
 	MoveableSprite sprite;
-	Sprite sprite2; //static non-moveable sprite
 	AnimatedSprite sprite3;
-	int spriteSize[2];
-
-	GlDrawFrameTester drawFrameTester;
-	int spriteSheetSizes[2];
-
 
 	// Game Window Size
 	const int WINDOW_WIDTH = 800;

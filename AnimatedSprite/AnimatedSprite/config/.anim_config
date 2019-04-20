@@ -1,5 +1,6 @@
 fish,images/magikarp.tga,8,8,100,100
 fish2,images/magikarp2.tga,8,8,75,75
-player,images/dwarf.tga,9,9,50,50
+player,images/dwarf1.tga,9,9,50,50
 skeleton,images/skeleton.tga,6,6,50,50
 explosion,images/explosion_128x128.tga,5,6,128,128
+dwarf,images/dwarf.tga,6,4,64,104

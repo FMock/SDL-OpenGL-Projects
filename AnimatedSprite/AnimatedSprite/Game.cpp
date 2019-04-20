@@ -84,19 +84,11 @@ bool Game::Initialize() {
 	//Create spritesheetInfo object MoveableSprites or AnimatedSprites can reference
 	ptrSpritesheetInfo = std::make_shared<SpritesheetInfo>("config/.anim_config");
 
-	spriteSize[0] = 44;
-	spriteSize[1] = 55;
-
 	//sprite = MoveableSprite(glTexImageTGAFile("images/magikarp.tga"), 44, 55, 100.0f, 100.0f, "fish");
 	sprite = MoveableSprite(44, 55, 100.0f, 100.0f, ptrSpritesheetInfo, "fish");
-	sprite2 = Sprite(glTexImageTGAFile("images/dwarf.tga", &spriteSize[0], &spriteSize[1]), 64, 104, 200.0f, 200.0f);
-	//sprite3 = AnimatedSprite(40.0f, 400.0f, ptrSpritesheetInfo, "fish2");
-	sprite3 = AnimatedSprite(40.0f, 400.0f, ptrSpritesheetInfo, "explosion");
 
-
-	//drawFrameTester = GlDrawFrameTester(glTexImageTGAFile("images/test-sheet.tga"), 300.0f, 300.0f, 6, 8, 100, 100);
-	//drawFrameTester = GlDrawFrameTester(glTexImageTGAFile("images/explosion_128x128.tga"), 300.0f, 300.0f, 5, 6, 128, 128);
-	
+	//sprite3 = AnimatedSprite(40.0f, 400.0f, ptrSpritesheetInfo, "explosion");
+	sprite3 = AnimatedSprite(40.0f, 400.0f, ptrSpritesheetInfo, "dwarf");
 
 	return true;
 }
@@ -126,9 +118,6 @@ void Game::ProcessInput() {
 		}
 	}
 
-	// USED FOR SETTING drawFrameTester animation
-	int currentAnim = drawFrameTester.getCurrentAnimation();
-
 	// Get state of keyboard
 	const Uint8* state = SDL_GetKeyboardState(NULL);
 	// If escape is pressed, also end loop
@@ -148,21 +137,20 @@ void Game::ProcessInput() {
 		sprite.moveDown();
 	}
 	else if (state[SDL_SCANCODE_D]) {
-		currentAnim = drawFrameTester.getCurrentAnimation();
-		currentAnim += 1 % 6;
-		drawFrameTester.setCurrentAnimation(currentAnim);
+		sprite3.changeAnimation(5);
 	}
 	else if (state[SDL_SCANCODE_A]) {
-		currentAnim = drawFrameTester.getCurrentAnimation();
-		currentAnim -= 1 % 6;
-		drawFrameTester.setCurrentAnimation(currentAnim);
+		sprite3.changeAnimation(4);
 	}
 	else if (state[SDL_SCANCODE_W]) {
+		sprite3.changeAnimation(3);
 	}
 	else if (state[SDL_SCANCODE_S]) {
+		sprite3.changeAnimation(2);
 	}
 	else {
 		sprite.stop();
+		sprite3.changeAnimation(1);
 	}
 }
 
@@ -182,17 +170,15 @@ void Game::UpdateGame() {
 
 	// Update the sprite
 	sprite.update(deltaTime);
-	sprite2.update(deltaTime);
 	sprite3.update(deltaTime);
-	//drawFrameTester.update(deltaTime);
 
-	if (sprite.box.boxesIntersect(sprite2.box)) {
+	if (sprite.box.boxesIntersect(sprite3.box)) {
 		sprite.sethasCollided(true);
-		sprite2.sethasCollided(true);
+		sprite3.sethasCollided(true);
 	}
 	else {
 		sprite.sethasCollided(false);
-		sprite2.sethasCollided(false);
+		sprite3.sethasCollided(false);
 	}
 }
 
@@ -204,9 +190,7 @@ void Game::GenerateOutput() {
 	// Game drawing goes here.
 	sprite.draw();
 	//printf(sprite.to_string().c_str());
-	sprite2.draw();
-	//drawFrameTester.draw();
-	//printf(drawFrameTester.to_string().c_str());
+
 	sprite3.draw();
 	printf(sprite3.to_string().c_str());
 
