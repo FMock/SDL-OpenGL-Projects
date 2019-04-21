@@ -4,13 +4,13 @@ AnimatedSprite::AnimatedSprite()
 {
 }
 
-AnimatedSprite::AnimatedSprite(float x, float y, std::shared_ptr<SpritesheetInfo> ptrSSInfo, const std::string& name) 
-	: ptrSpritesheetInfo(ptrSSInfo),
+AnimatedSprite::AnimatedSprite(float x, float y, std::shared_ptr<AnimationInfo> ptrAnimInfo, const std::string& name) 
+	: ptrAnimationInfo(ptrAnimInfo),
 	  name(name),
-	  Sprite(glTexImageTGAFile(this->getFileInfo(ptrSSInfo->getSpritesheetValues(name)).c_str()), 0, 0, x, y)
+	  Sprite(glTexImageTGAFile(this->getFileInfo(ptrAnimInfo->getSpritesheetValues(name)).c_str()), 0, 0, x, y)
 {
 	// Set Sprite Width
-	const std::string playerInfo = ptrSSInfo->getSpritesheetValues(name);
+	const std::string playerInfo = ptrAnimInfo->getSpritesheetValues(name);
 	std::string w = getSpritesheetInfoAtPos(playerInfo, ',', WIDTH);
 	setWidth(stringToInt(w));
 	box.w = stringToInt(w);
@@ -28,7 +28,7 @@ AnimatedSprite::AnimatedSprite(float x, float y, std::shared_ptr<SpritesheetInfo
 
 AnimatedSprite::~AnimatedSprite()
 {
-	ptrSpritesheetInfo.reset();
+	ptrAnimationInfo.reset();
 }
 
 void AnimatedSprite::update(float deltaTime)

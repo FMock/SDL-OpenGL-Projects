@@ -5,7 +5,7 @@
 #include<sstream>
 #include<memory>
 #include"DrawUtils.h"
-#include"SpritesheetInfo.h"
+#include"AnimationInfo.h"
 
 
 // The name of this class says it all - 
@@ -17,9 +17,9 @@ public:
 	MoveableSprite();
 	MoveableSprite(GLuint, int, int, float, float, std::string);
 
-	// Gets image file info from SpritesheetInfo using string parameter
-	//MoveableSprite(int, int, float, float, SpritesheetInfo*, std::string);
-	MoveableSprite(int, int, float, float, std::shared_ptr<SpritesheetInfo>, std::string);
+	// Gets image file info from AnimationInfo using string parameter
+	//MoveableSprite(int, int, float, float, AnimationInfo*, std::string);
+	MoveableSprite(int, int, float, float, std::shared_ptr<AnimationInfo>, std::string);
 
 	~MoveableSprite();
 
@@ -36,7 +36,7 @@ private:
 	std::string name;
 	std::string getFileInfo(const std::string&);
 	//SpritesheetInfo* spritesheetInfo;
-	std::shared_ptr<SpritesheetInfo> ptrSpritesheetInfo;
+	std::shared_ptr<AnimationInfo> ptrAnimationInfo;
 
 protected:
 	float change_x;

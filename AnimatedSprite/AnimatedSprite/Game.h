@@ -9,7 +9,8 @@
 #include"MoveableSprite.h"
 #include"AnimatedSprite.h"
 #include"DrawUtils.h"
-#include"SpritesheetInfo.h"
+//#include"SpritesheetInfo.h"
+#include"AnimationInfo.h"
 
 // Vector2 struct just stores x/y coordinates
 struct Vector2 {
@@ -35,7 +36,8 @@ public:
 	void Shutdown();
 
 	//Shared with other game objects
-	std::shared_ptr<SpritesheetInfo> ptrSpritesheetInfo;
+	//std::shared_ptr<SpritesheetInfo> ptrSpritesheetInfo;
+	std::shared_ptr<AnimationInfo> ptrAnimationInfo;
 
 private:
 	// Helper functions for the game loop

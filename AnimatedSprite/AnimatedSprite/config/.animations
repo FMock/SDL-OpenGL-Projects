@@ -1,0 +1,6 @@
+dwarf,4,1,0,stand-right,0
+dwarf,4,1,1,stand-left,0
+dwarf,4,1,2,walk-down,0
+dwarf,4,1,3,walk-up,0
+dwarf,4,1,4,walk-left,0
+dwarf,4,1,5,walk-right,0

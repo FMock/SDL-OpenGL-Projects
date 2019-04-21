@@ -9,7 +9,7 @@ Game::Game()
 
 Game::~Game()
 {
-	ptrSpritesheetInfo.reset();
+	ptrAnimationInfo.reset();
 }
 
 // Initialize the game
@@ -81,14 +81,15 @@ bool Game::Initialize() {
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 
-	//Create spritesheetInfo object MoveableSprites or AnimatedSprites can reference
-	ptrSpritesheetInfo = std::make_shared<SpritesheetInfo>("config/.anim_config");
+	//Create AnimationInfo object MoveableSprites or AnimatedSprites can reference
+	ptrAnimationInfo = std::make_shared<AnimationInfo>("config/.anim_config");
 
 	//sprite = MoveableSprite(glTexImageTGAFile("images/magikarp.tga"), 44, 55, 100.0f, 100.0f, "fish");
-	sprite = MoveableSprite(44, 55, 100.0f, 100.0f, ptrSpritesheetInfo, "fish");
+	sprite = MoveableSprite(44, 55, 100.0f, 100.0f, ptrAnimationInfo, "fish");
 
-	//sprite3 = AnimatedSprite(40.0f, 400.0f, ptrSpritesheetInfo, "explosion");
-	sprite3 = AnimatedSprite(40.0f, 400.0f, ptrSpritesheetInfo, "dwarf");
+	//sprite3 = AnimatedSprite(40.0f, 400.0f, ptrAnimationInfo, "explosion");
+	//sprite3 = AnimatedSprite(40.0f, 400.0f, ptrAnimationInfo, "dwarf");
+	sprite3 = AnimatedSprite(200.0f, 10.0f, ptrAnimationInfo, "girl");
 
 	return true;
 }

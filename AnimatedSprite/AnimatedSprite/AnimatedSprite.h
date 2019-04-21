@@ -7,7 +7,7 @@
 #include<memory> //std::shared_ptr<>
 #include"Sprite.h"
 #include"AnimationDef.h"
-#include"SpritesheetInfo.h"
+#include"AnimationInfo.h"
 #include"DrawUtils.h"
 
 
@@ -20,9 +20,9 @@
 class AnimatedSprite : public Sprite {
 public:
 	AnimatedSprite();
-	AnimatedSprite(float, float, std::shared_ptr<SpritesheetInfo>, const std::string&);
+	AnimatedSprite(float, float, std::shared_ptr<AnimationInfo>, const std::string&);
 	~AnimatedSprite();
-	std::shared_ptr<SpritesheetInfo> ptrSpritesheetInfo;
+	std::shared_ptr<AnimationInfo> ptrAnimationInfo;
 	virtual void update(float deltaTime);
 	virtual void draw();
 	void changeAnimation(int x); // tells animationDef to change to animation x

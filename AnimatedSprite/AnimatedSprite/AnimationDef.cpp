@@ -10,7 +10,7 @@ AnimationDef::AnimationDef(int rows, int cols)
 	: numberOfRows(rows),
 	  numberOfColumns(cols),
 	  frameTime(0.0f), // the amount of time the current frame has been displayed
-	  animFPS(12.0f)   // default is 24.0f
+	  animFPS(6.0f)   // default is 24.0f
 {
 
 	rowDivision = 1.0f / float(numberOfRows);
@@ -19,13 +19,19 @@ AnimationDef::AnimationDef(int rows, int cols)
 
 	// Create animations for vector by reading animation file
 	/*FOR NOW WE WILL TEST WITH THIS*/
+	// Animation(columns, # rows animation consists of, starting row, name, rowDiv, colDiv, facing enum #)
 	//animations.push_back(Animation(6, 5, 0, "explosion", rowDivision, colDivision, 0));
+
+	/*
 	animations.push_back(Animation(4, 1, 0, "stand-right", rowDivision, colDivision, 0));
 	animations.push_back(Animation(4, 1, 1, "stand-left", rowDivision, colDivision, 0));
 	animations.push_back(Animation(4, 1, 2, "walk-down", rowDivision, colDivision, 0));
 	animations.push_back(Animation(4, 1, 3, "walk-up", rowDivision, colDivision, 0));
 	animations.push_back(Animation(4, 1, 4, "walk-left", rowDivision, colDivision, 0));
 	animations.push_back(Animation(4, 1, 5, "walk-right", rowDivision, colDivision, 0));
+	*/
+
+	animations.push_back(Animation(8, 1, 0, "girl-walking-right", rowDivision, colDivision, 0));
 }
 
 void AnimationDef::update(float deltaTime) {

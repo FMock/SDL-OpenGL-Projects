@@ -4,3 +4,4 @@ player,images/dwarf1.tga,9,9,50,50
 skeleton,images/skeleton.tga,6,6,50,50
 explosion,images/explosion_128x128.tga,5,6,128,128
 dwarf,images/dwarf.tga,6,4,64,104
+girl,images/girl-walking-right.tga,1,8,275,535
