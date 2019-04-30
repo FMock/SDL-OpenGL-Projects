@@ -7,6 +7,7 @@
 #include<fstream>
 #include<sstream>
 #include<map>
+#include<vector>
 
 /*
   AnimationInfo provides spritesheet and animation info that other MoveableSprites or
@@ -31,13 +32,17 @@
 class AnimationInfo {
 public:
 	AnimationInfo();
-	AnimationInfo(const std::string &file);
+	AnimationInfo(const std::string &file, const std::string &file2);
 	std::string getSpritesheetValues(const std::string);
+	std::vector<std::string> getAnimationValues(const std::string&);
 
 private:
 	std::map<std::string, std::string> spritesheetMap;
+	std::multimap<std::string, std::string> animationMap;
 	const std::string configFile;
+	const std::string animationsFile;
 	void buildSpritesheetMap();
+	void buildAnimationMap();
 	void printMapInfo() const;
 	std::string getFirstToken(std::string, char);
 };

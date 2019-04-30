@@ -5,10 +5,11 @@ AnimationDef::AnimationDef()
 }
 
 
-
-AnimationDef::AnimationDef(int rows, int cols) 
+AnimationDef::AnimationDef(int rows, int cols, const std::string& name, std::shared_ptr<AnimationInfo> ptrAnimInfo)
 	: numberOfRows(rows),
 	  numberOfColumns(cols),
+	  name(name),
+	  ptrAnimationInfo(ptrAnimInfo),
 	  frameTime(0.0f), // the amount of time the current frame has been displayed
 	  animFPS(6.0f)   // default is 24.0f
 {
@@ -17,21 +18,24 @@ AnimationDef::AnimationDef(int rows, int cols)
 	colDivision = 1.0f / float(numberOfColumns);
 	currentAnimation = 0;
 
-	// Create animations for vector by reading animation file
-	/*FOR NOW WE WILL TEST WITH THIS*/
-	// Animation(columns, # rows animation consists of, starting row, name, rowDiv, colDiv, facing enum #)
-	//animations.push_back(Animation(6, 5, 0, "explosion", rowDivision, colDivision, 0));
+	// Get animation info and build Animation objects
+	std::vector<std::string> animInfo = ptrAnimationInfo->getAnimationValues(this->name);
+	
+	for (auto n : animInfo) {
+	
+		std::string a = getAnimationParamInfoAtPos(n, ',', animationParamPosition::NUMBER_OF_COLUMNS);
+		std::string b = getAnimationParamInfoAtPos(n, ',', animationParamPosition::NUMBER_OF_ROWS);
+		std::string c = getAnimationParamInfoAtPos(n, ',', animationParamPosition::STARTING_ROW);
+		std::string d = getAnimationParamInfoAtPos(n, ',', animationParamPosition::NAME);
+		std::string e = getAnimationParamInfoAtPos(n, ',', animationParamPosition::FACING_DIR);
 
-	/*
-	animations.push_back(Animation(4, 1, 0, "stand-right", rowDivision, colDivision, 0));
-	animations.push_back(Animation(4, 1, 1, "stand-left", rowDivision, colDivision, 0));
-	animations.push_back(Animation(4, 1, 2, "walk-down", rowDivision, colDivision, 0));
-	animations.push_back(Animation(4, 1, 3, "walk-up", rowDivision, colDivision, 0));
-	animations.push_back(Animation(4, 1, 4, "walk-left", rowDivision, colDivision, 0));
-	animations.push_back(Animation(4, 1, 5, "walk-right", rowDivision, colDivision, 0));
-	*/
+		                  // Animation(columns, # rows animation consists of, starting row, name, rowDiv, colDiv, facing enum #)
+		animations.push_back(Animation(stringToInt(a), stringToInt(b), stringToInt(c), d, rowDivision, colDivision, stringToInt(e)));
+	}
+}
 
-	animations.push_back(Animation(8, 1, 0, "girl-walking-right", rowDivision, colDivision, 0));
+AnimationDef::~AnimationDef(){
+	ptrAnimationInfo.reset();
 }
 
 void AnimationDef::update(float deltaTime) {
@@ -48,6 +52,23 @@ void AnimationDef::update(float deltaTime) {
 
 std::string AnimationDef::to_string() const {
 	return std::string();
+}
+
+std::string AnimationDef::getAnimationParamInfoAtPos(const std::string & line, char delimiter, int pos){
+	std::string buff;
+	std::stringstream ss;
+	ss << line;
+	for (auto i = 0; i < pos; i++) {
+		std::getline(ss, buff, delimiter);
+	}
+	return buff;
+}
+
+int AnimationDef::stringToInt(std::string& s) {
+	std::stringstream ss(s);
+	int n;
+	ss >> n;
+	return n;
 }
 
 int AnimationDef::getCurrentAnimation() const {

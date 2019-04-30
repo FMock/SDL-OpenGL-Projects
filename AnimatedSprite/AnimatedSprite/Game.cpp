@@ -82,11 +82,11 @@ bool Game::Initialize() {
 
 
 	//Create AnimationInfo object MoveableSprites or AnimatedSprites can reference
-	ptrAnimationInfo = std::make_shared<AnimationInfo>("config/.anim_config");
+	ptrAnimationInfo = std::make_shared<AnimationInfo>("config/.anim_config", "config/.animations");
 
+	/* Each level of game will create various amount and variety of sprites (game objects)*/
 	//sprite = MoveableSprite(glTexImageTGAFile("images/magikarp.tga"), 44, 55, 100.0f, 100.0f, "fish");
 	sprite = MoveableSprite(44, 55, 100.0f, 100.0f, ptrAnimationInfo, "fish");
-
 	//sprite3 = AnimatedSprite(40.0f, 400.0f, ptrAnimationInfo, "explosion");
 	//sprite3 = AnimatedSprite(40.0f, 400.0f, ptrAnimationInfo, "dwarf");
 	sprite3 = AnimatedSprite(200.0f, 10.0f, ptrAnimationInfo, "girl");
@@ -139,18 +139,23 @@ void Game::ProcessInput() {
 	}
 	else if (state[SDL_SCANCODE_D]) {
 		sprite3.changeAnimation(5);
+		sprite3.moveRight();
 	}
 	else if (state[SDL_SCANCODE_A]) {
 		sprite3.changeAnimation(4);
+		sprite3.moveLeft();
 	}
 	else if (state[SDL_SCANCODE_W]) {
 		sprite3.changeAnimation(3);
+		sprite3.moveUp();
 	}
 	else if (state[SDL_SCANCODE_S]) {
 		sprite3.changeAnimation(2);
+		sprite3.moveDown();
 	}
 	else {
 		sprite.stop();
+		sprite3.stop();
 		sprite3.changeAnimation(1);
 	}
 }

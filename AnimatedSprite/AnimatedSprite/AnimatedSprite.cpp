@@ -6,6 +6,10 @@ AnimatedSprite::AnimatedSprite()
 
 AnimatedSprite::AnimatedSprite(float x, float y, std::shared_ptr<AnimationInfo> ptrAnimInfo, const std::string& name) 
 	: ptrAnimationInfo(ptrAnimInfo),
+	  change_x(0.0),
+	  change_y(0.0),
+	  speed_x(5.0),
+	  speed_y(5.0),
 	  name(name),
 	  Sprite(glTexImageTGAFile(this->getFileInfo(ptrAnimInfo->getSpritesheetValues(name)).c_str()), 0, 0, x, y)
 {
@@ -23,7 +27,7 @@ AnimatedSprite::AnimatedSprite(float x, float y, std::shared_ptr<AnimationInfo> 
 	// Create an AnimatedDef that creates and manages the animations for sprite
 	std::string r = getSpritesheetInfoAtPos(playerInfo, ',', ROWS);
 	std::string c = getSpritesheetInfoAtPos(playerInfo, ',', COLUMNS);
-	animationDef = AnimationDef(stringToInt(r), stringToInt(c));
+	animationDef = AnimationDef(stringToInt(r), stringToInt(c), name, ptrAnimationInfo);
 }
 
 AnimatedSprite::~AnimatedSprite()
@@ -65,23 +69,31 @@ void AnimatedSprite::changeAnimation(int x)
 
 void AnimatedSprite::moveLeft()
 {
-	change_x += -speed_x;
-	change_y = 0;
+	if (abs(change_x) < MAX_CHANGE_X) {
+		change_x += -speed_x;
+		change_y = 0;
+	}
 }
 
 void AnimatedSprite::moveRight(){
-	change_x += speed_x;
-	change_y = 0;
+	if (abs(change_x) < MAX_CHANGE_X) {
+		change_x += speed_x;
+		change_y = 0;
+	}
 }
 
 void AnimatedSprite::moveUp(){
-	change_x = 0;
-	change_y -= speed_y;
+	if (abs(change_y) < MAX_CHANGE_Y) {
+		change_x = 0;
+		change_y -= speed_y;
+	}
 }
 
 void AnimatedSprite::moveDown(){
-	change_x = 0;
-	change_y += speed_y;
+	if (abs(change_y) < MAX_CHANGE_Y) {
+		change_x = 0;
+		change_y += speed_y;
+	}
 }
 
 void AnimatedSprite::stop(){
@@ -138,6 +150,10 @@ std::string AnimatedSprite::to_string() const
 		<< "box x=" << box.x << "\n"
 		<< "box y=" << box.y << "\n"
 		<< "box w=" << box.w << "\n"
-		<< "box h=" << box.h << "\n";
+		<< "box h=" << box.h << "\n"
+		<< "change_x " << change_x << "\n"
+		<< "change_y " << change_y << "\n"
+		<< "speed_x " << speed_x << "\n"
+		<< "speed_y " << speed_y << "\n";
 	return oss.str();
 }

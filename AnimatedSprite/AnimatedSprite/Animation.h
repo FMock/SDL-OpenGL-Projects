@@ -27,6 +27,8 @@ public:
 	Frame currentFrame; // encapsulates texture s1, s2, t1, t2 which define current frame and related info
 	int getframeCount() const;
 	int getTotalFrameCount() const;
+	enum Parameters {COLUMNS=1, ROWS, STARTING_ROW, NAME, FACING_DIRECTION};
+	static Parameters parameters;
 	std::string getName() const;
 private:
 	int numberOfColumns; // number of frames in one row a the animation (all rows must contain the same number of columns)

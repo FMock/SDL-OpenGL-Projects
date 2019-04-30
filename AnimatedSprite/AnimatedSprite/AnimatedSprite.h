@@ -17,6 +17,9 @@
  * AnimatedSprite uses and animation centric information common to all the animations.
  * */
 
+const float MAX_CHANGE_X = 150.0f;
+const float MAX_CHANGE_Y = 150.0f;
+
 class AnimatedSprite : public Sprite {
 public:
 	AnimatedSprite();
@@ -47,6 +50,8 @@ private:
 	int stringToInt(std::string& s);
 
 protected:
+	float change_x;
+	float change_y;
 	float speed_x;
 	float speed_y;
 };
