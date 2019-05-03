@@ -8,8 +8,8 @@ AnimatedSprite::AnimatedSprite(float x, float y, std::shared_ptr<AnimationInfo> 
 	: ptrAnimationInfo(ptrAnimInfo),
 	  change_x(0.0),
 	  change_y(0.0),
-	  speed_x(5.0),
-	  speed_y(5.0),
+	  speed_x(100.0),
+	  speed_y(100.0),
 	  name(name),
 	  Sprite(glTexImageTGAFile(this->getFileInfo(ptrAnimInfo->getSpritesheetValues(name)).c_str()), 0, 0, x, y)
 {

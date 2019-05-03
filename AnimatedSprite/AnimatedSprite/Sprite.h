@@ -20,6 +20,8 @@ public:
 	void sethasCollided(bool);
 	AABB& getBox();
 	AABB box;
+	void setX(float x);
+	void setY(float y);
 	std::string to_string() const;
 protected:
 	GLuint texture;

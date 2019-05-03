@@ -38,6 +38,14 @@ AABB& Sprite::getBox(){
 	return this->box;
 }
 
+void Sprite::setX(float x) {
+
+	this->x = x;
+}
+void Sprite::setY(float y) {
+	this->y = y;
+}
+
 std::string Sprite::to_string() const {
 	std::ostringstream oss;
 	oss << "has collided=" << hasCollided << "\n"

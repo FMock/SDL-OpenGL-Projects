@@ -89,7 +89,7 @@ bool Game::Initialize() {
 	sprite = MoveableSprite(44, 55, 100.0f, 100.0f, ptrAnimationInfo, "fish");
 	//sprite3 = AnimatedSprite(40.0f, 400.0f, ptrAnimationInfo, "explosion");
 	//sprite3 = AnimatedSprite(40.0f, 400.0f, ptrAnimationInfo, "dwarf");
-	sprite3 = AnimatedSprite(200.0f, 10.0f, ptrAnimationInfo, "girl");
+	sprite3 = AnimatedSprite(100.0f, 10.0f, ptrAnimationInfo, "girl");
 
 	return true;
 }
@@ -176,8 +176,14 @@ void Game::UpdateGame() {
 
 	// Update the sprite
 	sprite.update(deltaTime);
+
+	// Continuously move sprite3 across the screen (and loop back around)
+	sprite3.moveRight();
+	if (sprite3.box.x > 800)
+		sprite3.setX(-200);
 	sprite3.update(deltaTime);
 
+	// Check for sprite to sprite intersections
 	if (sprite.box.boxesIntersect(sprite3.box)) {
 		sprite.sethasCollided(true);
 		sprite3.sethasCollided(true);

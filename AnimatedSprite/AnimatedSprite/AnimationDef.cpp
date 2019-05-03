@@ -21,6 +21,8 @@ AnimationDef::AnimationDef(int rows, int cols, const std::string& name, std::sha
 	// Get animation info and build Animation objects
 	std::vector<std::string> animInfo = ptrAnimationInfo->getAnimationValues(this->name);
 	
+	/* Create Animation objects.
+	 *** VERY DEPENDANT ON THE STRUCTURE OF INFORMATION IN THE .animations FILE***/
 	for (auto n : animInfo) {
 	
 		std::string a = getAnimationParamInfoAtPos(n, ',', animationParamPosition::NUMBER_OF_COLUMNS);
@@ -62,6 +64,20 @@ std::string AnimationDef::getAnimationParamInfoAtPos(const std::string & line, c
 		std::getline(ss, buff, delimiter);
 	}
 	return buff;
+}
+
+/* Returns the number of tokens in a string of delimiter separated values*/
+int AnimationDef::getTokenCount(std::string & s, char delimiter) const{
+	
+	int count = 0;
+	std::string buff;
+	std::istringstream ss(s);
+
+	while (std::getline(ss, buff, delimiter)) {
+		count++;
+	}
+	
+	return count;
 }
 
 int AnimationDef::stringToInt(std::string& s) {

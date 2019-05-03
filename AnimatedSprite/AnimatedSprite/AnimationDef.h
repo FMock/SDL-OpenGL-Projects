@@ -38,6 +38,7 @@ private:
 	enum animationParamPosition{NUMBER_OF_COLUMNS=1, NUMBER_OF_ROWS, STARTING_ROW, NAME, FACING_DIR};
 
 	std::string getAnimationParamInfoAtPos(const std::string & line, char delimiter, int pos);
+	int getTokenCount(std::string&, char) const;
 	int stringToInt(std::string& s);
 	float frameTime; // the amount of time the current frame has been displayed
 	float animFPS;   // default is 24.0f
